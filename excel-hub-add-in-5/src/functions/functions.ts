@@ -1,6 +1,8 @@
 /// <reference types="custom-functions-runtime" />
 /* global clearInterval, console, CustomFunctions, setInterval */
 
+import HubHelper from '@/HubHelper';
+
 /**
  * Adds two numbers.
  * @customfunction
@@ -20,7 +22,23 @@ export function add(first: number, second: number): number {
  * @returns The sum of the two numbers.
  */
 export function wpshubfunction(first: number, second: number): number {
-  return first + second;
+
+  // Put the token in here.
+  let hub = new HubHelper('eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxZDhjZmVkLWNkYjctNGZjZC1hODJkLTVjNTRmMjZmMDFjMSJ9.eyJhdF9oYXNoIjoiLWk2YllkVFNzeXg0QWdpZVJPTXZIQSIsImF1ZCI6WyJ3cHMtaHViIl0sImF1dGhfdGltZSI6MTY0MzAwOTM1MiwiZW1haWwiOiJodWJhZG1pbkBleGFtcGxlLmNvbSIsImV4cCI6MTY0MzAxMjk2NywiZ3JvdXBzIjpbIjAyOWQ1NzA1LTA5MWMtNGUwYi04MjdmLWViM2I5YzQ0Y2IzZiIsIjNiY2JiYjJiLTdiZDUtNGQ0Ni1iZTY0LWUxZmIzOTJmMTQwZiJdLCJodWJfaWQiOiJmNjQ4YzIzYi04YWExLTQzNWYtYWI0ZC05Y2VkMTgyZjM1YmIiLCJpYXQiOjE2NDMwMDkzNjcsImlzcyI6Imh0dHBzOi8vZXhjZWwtdGVzdC53cHNpbnRlcm5hbC5jby51ayIsImp0aSI6ImMwOTk3ZGRmLWE4M2MtNDU1OS1iMDlhLWJlMjliOTc3NWM2OCIsIm5hbWUiOiJIdWIgQWRtaW5pc3RyYXRvciIsInN1YiI6Ikh1YkFkbWluaXN0cmF0b3IiLCJ1c2VyX25hbWUiOiJIdWJBZG1pbmlzdHJhdG9yIn0.UU8u3Qaffhbj83nTIrKSXjcDyTasPP5KT_PEVZyLs96J8_lNWnByjAHhrRsnuqANoCWQUlFbwFv58y8pNIMdXruosB_hcYgoAL6SIFwLbwQZ-O4Qaau-mTPKEUNObmMI4G4kVTg8livbMNV4L3VgMrXtGDPMIKBtDa0elsh9R_FWU2_XkC9THqJ--mj72za46gXX6ppmKl2yCIiP-gzOzUmkTIOdwokBwcsT3YrcaaeRmKYdUMVkDachaT0xGyF4cTu26qVVzVv0u0QtSjP-JKHdIWBGKNxfix0yPOD9McYrNjh264HbNwrBlgF9eNHFePYbKJLd0MDFSjlsEXDGKw');
+
+  const testParams = {
+    FirstString: 'Ham',  SecondString: 'Egg', ThirdString: 'Cheese'
+  }
+
+  hub.executeProgram('webteamtestprograms/web/multiparam', testParams)
+    .then((resp) => {
+      console.log('HelloWorld response', resp);
+    })
+    .catch((err) => {
+      console.log('Error executing hub program:', err);
+    })
+
+  return first + second * 2;
 }
 
 /**
