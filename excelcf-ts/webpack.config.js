@@ -4,6 +4,7 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CustomFunctionsMetadataPlugin = require("custom-functions-metadata-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
 
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
@@ -25,6 +26,7 @@ module.exports = async (env, options) => {
       functions: "./src/functions/functions.ts",
       taskpane: "./src/taskpane/taskpane.ts",
       commands: "./src/commands/commands.ts",
+      app: ["./src/main.js"],
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -35,6 +37,10 @@ module.exports = async (env, options) => {
     },
     module: {
       rules: [
+        {
+          test: /\.vue$/,
+          use: "vue-loader",
+        },
         {
           test: /\.ts$/,
           exclude: /node_modules/,
@@ -65,6 +71,7 @@ module.exports = async (env, options) => {
       ],
     },
     plugins: [
+      new VueLoaderPlugin(),
       new CustomFunctionsMetadataPlugin({
         output: "functions.json",
         input: "./src/functions/functions.ts",
@@ -78,6 +85,11 @@ module.exports = async (env, options) => {
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
         chunks: ["polyfill", "taskpane"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: "index.html",
+        inject: true,
       }),
       new CopyWebpackPlugin({
         patterns: [

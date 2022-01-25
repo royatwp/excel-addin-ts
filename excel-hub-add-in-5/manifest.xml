@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-  <Id>1e73a3ed-9009-4a6e-b225-17fc738a20ab</Id>
-  <Version>1.0.0.0</Version>
-  <ProviderName>Contoso</ProviderName>
+  <Id>4db747f4-bf11-457a-8a34-c2d7390f2990</Id>
+  <Version>1.1.0.0</Version>
+  <ProviderName>World Programming Ltd</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="excelcf-ts"/>
-  <Description DefaultValue="Write your own Excel functions in TypeScript."/>
+  <DisplayName DefaultValue="wps-hub-add-in"/>
+  <Description DefaultValue="wps-hub-add-in-description"/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <SupportUrl DefaultValue="https://www.google.com"/>
   <AppDomains>
-    <AppDomain>https://www.contoso.com</AppDomain>
+    <AppDomain>https://www.worldprogramming.com</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
   </Hosts>
   <Requirements>
     <Sets DefaultMinVersion="1.1">
-      <Set Name="CustomFunctionsRuntime" MinVersion="1.1"/>
+      <Set Name="SharedRuntime" MinVersion="1.1"/>
     </Sets>
   </Requirements>
   <DefaultSettings>
@@ -27,13 +27,16 @@
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Hosts>
       <Host xsi:type="Workbook">
+        <Runtimes>
+          <Runtime resid="Taskpane.Url" lifetime="long" />
+        </Runtimes>
         <AllFormFactors>
           <ExtensionPoint xsi:type="CustomFunctions">
             <Script>
               <SourceLocation resid="Functions.Script.Url"/>
             </Script>
             <Page>
-              <SourceLocation resid="Functions.Page.Url"/>
+              <SourceLocation resid="Taskpane.Url"/>
             </Page>
             <Metadata>
               <SourceLocation resid="Functions.Metadata.Url"/>
@@ -47,7 +50,7 @@
             <Description resid="GetStarted.Description"/>
             <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
           </GetStarted>
-          <FunctionFile resid="Commands.Url"/>
+          <FunctionFile resid="Taskpane.Url"/>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
               <Group id="CommandsGroup">
@@ -68,7 +71,7 @@
                     <bt:Image size="32" resid="Icon.32x32"/>
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
-                  <Action xsi:type="ShowTaskpane">
+                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ButtonId1</TaskpaneId>
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
@@ -86,22 +89,20 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/dist/functions.js"/>
-        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://localhost:3000/dist/functions.json"/>
-        <bt:Url id="Functions.Page.Url" DefaultValue="https://localhost:3000/dist/functions.html"/>
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/functions.js"/>
+        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://localhost:3000/functions.json"/>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Functions.Namespace" DefaultValue="CONTOSO"/>
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
-        <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
+        <bt:String id="Functions.Namespace" DefaultValue="WPSHUB"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with WPS Hub"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="World Programming"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="WPS Hub"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started."/>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
+        <bt:String id="GetStarted.Description" DefaultValue="WPS Hub Add-In loaded succesfully"/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to show WPS Hub"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
